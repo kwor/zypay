@@ -7,6 +7,6 @@
 <title>测试接口列表</title>
 </head>
 <body>
-<a href="/home2.app/user/showUser" >测试用户信息获取</a>
+<a href="/home2.app/user/1/" >测试用户信息获取</a>
 </body>
 </html>
