@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
-import com.zy.base.pojo.User;
-import com.zy.base.service.IUserService;
+import com.zy.base.pojo.Customer;
+import com.zy.base.service.ICustomerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)		//表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -18,7 +18,7 @@ public class TestMyBatis {
 	private static Logger logger = Logger.getLogger(TestMyBatis.class);
 //	private ApplicationContext ac = null;
 	@Resource
-	private IUserService userService = null;
+	private ICustomerService customerService = null;
 
 //	@Before
 //	public void before() {
@@ -28,9 +28,9 @@ public class TestMyBatis {
 
 	@Test
 	public void test1() {
-		User user = userService.getUserById(1);
+		Customer customer = customerService.getCustomerById(1);
 		// System.out.println(user.getUserName());
 		// logger.info("值："+user.getUserName());
-		logger.info(JSON.toJSONString(user));
+		logger.info(JSON.toJSONString(customer));
 	}
 }
