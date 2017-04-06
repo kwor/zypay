@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.base.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.zy.base.pojo.Customer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="merchant_id" jdbcType="INTEGER" property="merchantId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="customer_status" jdbcType="TINYINT" property="customerStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerWithBLOBs">
+    <result column="name" jdbcType="LONGVARCHAR" property="name" />
+    <result column="pay_key" jdbcType="LONGVARCHAR" property="payKey" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, password, mail, phone, add_time, customer_status
+  </sql>
+  <sql id="Blob_Column_List">
+    name, pay_key, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from zpay_customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zpay_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerWithBLOBs">
+    insert into zpay_customer (id, merchant_id, password, 
+      mail, phone, add_time, 
+      customer_status, name, pay_key, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
+      #{mail,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{customerStatus,jdbcType=TINYINT}, #{name,jdbcType=LONGVARCHAR}, #{payKey,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerWithBLOBs">
+    insert into zpay_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="customerStatus != null">
+        customer_status,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="payKey != null">
+        pay_key,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStatus != null">
+        #{customerStatus,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payKey != null">
+        #{payKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerWithBLOBs">
+    update zpay_customer
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStatus != null">
+        customer_status = #{customerStatus,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payKey != null">
+        pay_key = #{payKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerWithBLOBs">
+    update zpay_customer
+    set merchant_id = #{merchantId,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      customer_status = #{customerStatus,jdbcType=TINYINT},
+      name = #{name,jdbcType=LONGVARCHAR},
+      pay_key = #{payKey,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.Customer">
+    update zpay_customer
+    set merchant_id = #{merchantId,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      customer_status = #{customerStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

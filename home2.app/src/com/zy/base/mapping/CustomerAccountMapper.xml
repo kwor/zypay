@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.base.dao.CustomerAccountMapper">
+  <resultMap id="BaseResultMap" type="com.zy.base.pojo.CustomerAccount">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="total_balance" jdbcType="DECIMAL" property="totalBalance" />
+    <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
+    <result column="blocked_balances" jdbcType="DECIMAL" property="blockedBalances" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, total_balance, available_balance, blocked_balances
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zpay_customer_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zpay_customer_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccount">
+    insert into zpay_customer_account (id, customer_id, total_balance, 
+      available_balance, blocked_balances)
+    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{totalBalance,jdbcType=DECIMAL}, 
+      #{availableBalance,jdbcType=DECIMAL}, #{blockedBalances,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccount">
+    insert into zpay_customer_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="totalBalance != null">
+        total_balance,
+      </if>
+      <if test="availableBalance != null">
+        available_balance,
+      </if>
+      <if test="blockedBalances != null">
+        blocked_balances,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="totalBalance != null">
+        #{totalBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="blockedBalances != null">
+        #{blockedBalances,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerAccount">
+    update zpay_customer_account
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="totalBalance != null">
+        total_balance = #{totalBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        available_balance = #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="blockedBalances != null">
+        blocked_balances = #{blockedBalances,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccount">
+    update zpay_customer_account
+    set customer_id = #{customerId,jdbcType=INTEGER},
+      total_balance = #{totalBalance,jdbcType=DECIMAL},
+      available_balance = #{availableBalance,jdbcType=DECIMAL},
+      blocked_balances = #{blockedBalances,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.base.dao.CustomerAccountBlockLogMapper">
+  <resultMap id="BaseResultMap" type="com.zy.base.pojo.CustomerAccountBlockLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fromcustomer" jdbcType="VARCHAR" property="fromcustomer" />
+    <result column="tocustomer" jdbcType="VARCHAR" property="tocustomer" />
+    <result column="payfromcustomer" jdbcType="SMALLINT" property="payfromcustomer" />
+    <result column="paytocustomer" jdbcType="SMALLINT" property="paytocustomer" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="block_id" jdbcType="INTEGER" property="blockId" />
+    <result column="order_no" jdbcType="INTEGER" property="orderNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fromcustomer, tocustomer, payfromcustomer, paytocustomer, status, block_id, order_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zpay_customer_account_block_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zpay_customer_account_block_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccountBlockLog">
+    insert into zpay_customer_account_block_log (id, fromcustomer, tocustomer, 
+      payfromcustomer, paytocustomer, status, 
+      block_id, order_no)
+    values (#{id,jdbcType=INTEGER}, #{fromcustomer,jdbcType=VARCHAR}, #{tocustomer,jdbcType=VARCHAR}, 
+      #{payfromcustomer,jdbcType=SMALLINT}, #{paytocustomer,jdbcType=SMALLINT}, #{status,jdbcType=VARCHAR}, 
+      #{blockId,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountBlockLog">
+    insert into zpay_customer_account_block_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fromcustomer != null">
+        fromcustomer,
+      </if>
+      <if test="tocustomer != null">
+        tocustomer,
+      </if>
+      <if test="payfromcustomer != null">
+        payfromcustomer,
+      </if>
+      <if test="paytocustomer != null">
+        paytocustomer,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fromcustomer != null">
+        #{fromcustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="tocustomer != null">
+        #{tocustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="payfromcustomer != null">
+        #{payfromcustomer,jdbcType=SMALLINT},
+      </if>
+      <if test="paytocustomer != null">
+        #{paytocustomer,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerAccountBlockLog">
+    update zpay_customer_account_block_log
+    <set>
+      <if test="fromcustomer != null">
+        fromcustomer = #{fromcustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="tocustomer != null">
+        tocustomer = #{tocustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="payfromcustomer != null">
+        payfromcustomer = #{payfromcustomer,jdbcType=SMALLINT},
+      </if>
+      <if test="paytocustomer != null">
+        paytocustomer = #{paytocustomer,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountBlockLog">
+    update zpay_customer_account_block_log
+    set fromcustomer = #{fromcustomer,jdbcType=VARCHAR},
+      tocustomer = #{tocustomer,jdbcType=VARCHAR},
+      payfromcustomer = #{payfromcustomer,jdbcType=SMALLINT},
+      paytocustomer = #{paytocustomer,jdbcType=SMALLINT},
+      status = #{status,jdbcType=VARCHAR},
+      block_id = #{blockId,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

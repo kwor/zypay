@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.base.dao.CustomerAccountTransferMapper">
+  <resultMap id="BaseResultMap" type="com.zy.base.pojo.CustomerAccountTransfer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="payer_customer_id" jdbcType="INTEGER" property="payerCustomerId" />
+    <result column="payee_customer_id" jdbcType="INTEGER" property="payeeCustomerId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="fee_taken_on" jdbcType="TINYINT" property="feeTakenOn" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerAccountTransfer">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, payer_customer_id, payee_customer_id, amount, fee, fee_taken_on, add_time, 
+    status
+  </sql>
+  <sql id="Blob_Column_List">
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from zpay_customer_account_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zpay_customer_account_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
+    insert into zpay_customer_account_transfer (id, order_id, payer_customer_id, 
+      payee_customer_id, amount, fee, 
+      fee_taken_on, add_time, status, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{payerCustomerId,jdbcType=INTEGER}, 
+      #{payeeCustomerId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
+      #{feeTakenOn,jdbcType=TINYINT}, #{addTime,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
+    insert into zpay_customer_account_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="payerCustomerId != null">
+        payer_customer_id,
+      </if>
+      <if test="payeeCustomerId != null">
+        payee_customer_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="feeTakenOn != null">
+        fee_taken_on,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payerCustomerId != null">
+        #{payerCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeCustomerId != null">
+        #{payeeCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeTakenOn != null">
+        #{feeTakenOn,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
+    update zpay_customer_account_transfer
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payerCustomerId != null">
+        payer_customer_id = #{payerCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeCustomerId != null">
+        payee_customer_id = #{payeeCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeTakenOn != null">
+        fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
+    update zpay_customer_account_transfer
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      payer_customer_id = #{payerCustomerId,jdbcType=INTEGER},
+      payee_customer_id = #{payeeCustomerId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      fee = #{fee,jdbcType=DECIMAL},
+      fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
+    update zpay_customer_account_transfer
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      payer_customer_id = #{payerCustomerId,jdbcType=INTEGER},
+      payee_customer_id = #{payeeCustomerId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      fee = #{fee,jdbcType=DECIMAL},
+      fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

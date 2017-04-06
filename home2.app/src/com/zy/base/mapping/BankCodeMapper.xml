@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.base.dao.BankCodeMapper">
+  <resultMap id="BaseResultMap" type="com.zy.base.pojo.BankCode">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bk_code" jdbcType="VARCHAR" property="bkCode" />
+    <result column="bk_name" jdbcType="VARCHAR" property="bkName" />
+    <result column="bk_status" jdbcType="TINYINT" property="bkStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bk_code, bk_name, bk_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zpay_bank_code
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zpay_bank_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.BankCode">
+    insert into zpay_bank_code (id, bk_code, bk_name, 
+      bk_status)
+    values (#{id,jdbcType=INTEGER}, #{bkCode,jdbcType=VARCHAR}, #{bkName,jdbcType=VARCHAR}, 
+      #{bkStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.BankCode">
+    insert into zpay_bank_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bkCode != null">
+        bk_code,
+      </if>
+      <if test="bkName != null">
+        bk_name,
+      </if>
+      <if test="bkStatus != null">
+        bk_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bkCode != null">
+        #{bkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bkName != null">
+        #{bkName,jdbcType=VARCHAR},
+      </if>
+      <if test="bkStatus != null">
+        #{bkStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.BankCode">
+    update zpay_bank_code
+    <set>
+      <if test="bkCode != null">
+        bk_code = #{bkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bkName != null">
+        bk_name = #{bkName,jdbcType=VARCHAR},
+      </if>
+      <if test="bkStatus != null">
+        bk_status = #{bkStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.BankCode">
+    update zpay_bank_code
+    set bk_code = #{bkCode,jdbcType=VARCHAR},
+      bk_name = #{bkName,jdbcType=VARCHAR},
+      bk_status = #{bkStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
