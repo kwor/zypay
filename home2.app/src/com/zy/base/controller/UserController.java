@@ -23,7 +23,7 @@ public class UserController {
 		User user = this.userService.getUserById(userId);
 		model.addAttribute("user", user);
 		
-		System.out.println("hello world"+user.getUserName());
+		System.out.println("user:"+user.getUserName());
 		
 		return "showUser";
 	}
