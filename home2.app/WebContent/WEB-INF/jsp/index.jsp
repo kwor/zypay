@@ -9,7 +9,6 @@
 <body>
 <a href="/home2.app/customer/1/" >用户信息GET</a>
 <a href="/home2.app/customer/test/" >测试post到接口</a>
-<a href="/home2.app/customer/CustomerPostJson/" >测试post json到接口</a>
 <a href="/home2.app/customer/1/" >用户信息DELETE</a>
 
 </body>
