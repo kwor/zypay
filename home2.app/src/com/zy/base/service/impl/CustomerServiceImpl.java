@@ -25,4 +25,20 @@ public class CustomerServiceImpl implements ICustomerService {
 	    return  customerDao.insert(resource);
 	}
  
+	public  int update( @RequestBody Customer resource ){
+		//
+	    return  customerDao.updateByPrimaryKey(resource);
+	}
+ 
+	
+	public  int delete( int customerId){
+		//
+	    return  customerDao.deleteByPrimaryKey(customerId);
+	}
+ 
+	public int getById(int customerId){
+		//´ýÓÅ»¯
+		 Customer cu=customerDao.selectByPrimaryKey(customerId);
+		 return cu.getId();
+	}
 }
