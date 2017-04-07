@@ -51,20 +51,20 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public int create(Customer resource) {
+	public int create( Customer resource) {
 		Preconditions.checkNotNull(resource);
-		//System.out.println("测试数据" + resource.getName());
-		// System.out.println(resource.getPassword());
 		return customerService.create(resource);
-		// return "测试数据"+resource;
+
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") int id, @RequestBody Customer resource) {
+	public int update(@PathVariable("id") int id, Customer resource) {
+		
 		Preconditions.checkNotNull(resource);
-		Preconditions.checkNotNull(customerService.getById(resource.getId()));
+		//Preconditions.checkNotNull(customerService.getById(resource.getId()));
 		customerService.update(resource);
+		return id;
 	}
 	// */
 

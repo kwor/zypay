@@ -14,13 +14,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
  
 <input id="postJsonBtn" type="button" value="post json">
+<input id="putJsonBtn" type="button" value="put json">
+<input id="deleteJsonBtn" type="button" value="delete json">
+
 <div id="content"></div>
 <script type="application/javascript">
    
     $('#postJsonBtn').click(function () {
-        $.post('http://localhost:7688/home2.app/customer', {"name": "henry", "password": "12121221"}, function (data) {
+    	$.ajax({
+    		  url: 'http://localhost:7688/home2.app/customer',
+    		  type: 'POST',
+    		  contentType : "application/json ; charset=utf-8",  
+    		  dataType : "json" ,
+    		  data:{"name": "henry", "password": "12121221"},
+      	 success:function(data) {
+      		 $('#content').html(data);
+           },
+           error:function(data) {
+          	 $('#content').html(data);
+           } 
+    		});
+    	/*
+    	$.post('http://localhost:7688/home2.app/customer', {"name": "henry", "password": "12121221"}, function (data) {
             $('#content').html(data);
         })
+        */
+    });
+    $('#putJsonBtn').click(function () {
+    	$.ajax({
+  		  url: 'http://localhost:7688/home2.app/customer/1',
+  		  type: 'PUT',
+  		  dataType : "json" ,
+  		  data:{"name": "updd", "password": "223112121"},
+    	 success:function(data) {
+    		 $('#content').html(data);
+         },
+         error:function(data) {
+        	 $('#content').html(data);
+         } 
+  		});
+    });
+    $('#deleteJsonBtn').click(function () {
+    	$.ajax({
+    		  url: 'http://localhost:7688/home2.app/customer/7',
+    		  type: 'DELETE',
+    	      success:function(data) {
+    	    		 $('#content').html(data);
+    	      },
+    		 // data: {}
+    		 
+    		});
     });
 </script>
 </body>
