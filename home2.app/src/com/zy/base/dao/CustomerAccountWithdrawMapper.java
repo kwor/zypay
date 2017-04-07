@@ -1,20 +1,30 @@
 package com.zy.base.dao;
 
 import com.zy.base.pojo.CustomerAccountWithdraw;
-import com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs;
+import com.zy.base.pojo.CustomerAccountWithdrawExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CustomerAccountWithdrawMapper {
+    long countByExample(CustomerAccountWithdrawExample example);
+
+    int deleteByExample(CustomerAccountWithdrawExample example);
+
     int deleteByPrimaryKey(Integer id);
 
-    int insert(CustomerAccountWithdrawWithBLOBs record);
+    int insert(CustomerAccountWithdraw record);
 
-    int insertSelective(CustomerAccountWithdrawWithBLOBs record);
+    int insertSelective(CustomerAccountWithdraw record);
 
-    CustomerAccountWithdrawWithBLOBs selectByPrimaryKey(Integer id);
+    List<CustomerAccountWithdraw> selectByExample(CustomerAccountWithdrawExample example);
 
-    int updateByPrimaryKeySelective(CustomerAccountWithdrawWithBLOBs record);
+    CustomerAccountWithdraw selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeyWithBLOBs(CustomerAccountWithdrawWithBLOBs record);
+    int updateByExampleSelective(@Param("record") CustomerAccountWithdraw record, @Param("example") CustomerAccountWithdrawExample example);
+
+    int updateByExample(@Param("record") CustomerAccountWithdraw record, @Param("example") CustomerAccountWithdrawExample example);
+
+    int updateByPrimaryKeySelective(CustomerAccountWithdraw record);
 
     int updateByPrimaryKey(CustomerAccountWithdraw record);
 }

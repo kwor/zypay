@@ -3,28 +3,93 @@
 <mapper namespace="com.zy.base.dao.MerchantMapper">
   <resultMap id="BaseResultMap" type="com.zy.base.pojo.Merchant">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sign_key" jdbcType="VARCHAR" property="signKey" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="VARCHAR" property="addTime" />
     <result column="merchant_status" jdbcType="TINYINT" property="merchantStatus" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.MerchantWithBLOBs">
-    <result column="name" jdbcType="LONGVARCHAR" property="name" />
-    <result column="sign_key" jdbcType="LONGVARCHAR" property="signKey" />
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
-  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List">
-    id, password, email, phone, add_time, merchant_status
+    id, name, password, email, phone, sign_key, remark, add_time, merchant_status
   </sql>
-  <sql id="Blob_Column_List">
-    name, sign_key, remark
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExample" parameterType="com.zy.base.pojo.MerchantExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zpay_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_merchant
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -32,21 +97,30 @@
     delete from zpay_merchant
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zy.base.pojo.MerchantWithBLOBs">
-    insert into zpay_merchant (id, password, email, 
-      phone, add_time, merchant_status, 
-      name, sign_key, remark
+  <delete id="deleteByExample" parameterType="com.zy.base.pojo.MerchantExample">
+    delete from zpay_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.Merchant">
+    insert into zpay_merchant (id, name, password, 
+      email, phone, sign_key, 
+      remark, add_time, merchant_status
       )
-    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, #{merchantStatus,jdbcType=TINYINT}, 
-      #{name,jdbcType=LONGVARCHAR}, #{signKey,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{signKey,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, #{merchantStatus,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zy.base.pojo.MerchantWithBLOBs">
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.Merchant">
     insert into zpay_merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="password != null">
         password,
@@ -57,25 +131,25 @@
       <if test="phone != null">
         phone,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="merchantStatus != null">
-        merchant_status,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
       <if test="signKey != null">
         sign_key,
       </if>
       <if test="remark != null">
         remark,
       </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="merchantStatus != null">
+        merchant_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -86,26 +160,82 @@
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="signKey != null">
+        #{signKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         #{addTime,jdbcType=VARCHAR},
       </if>
       <if test="merchantStatus != null">
         #{merchantStatus,jdbcType=TINYINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="signKey != null">
-        #{signKey,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.MerchantWithBLOBs">
+  <select id="countByExample" parameterType="com.zy.base.pojo.MerchantExample" resultType="java.lang.Long">
+    select count(*) from zpay_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
     update zpay_merchant
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signKey != null">
+        sign_key = #{record.signKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantStatus != null">
+        merchant_status = #{record.merchantStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zpay_merchant
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      sign_key = #{record.signKey,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      merchant_status = #{record.merchantStatus,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.Merchant">
+    update zpay_merchant
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -115,41 +245,29 @@
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="signKey != null">
+        sign_key = #{signKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=VARCHAR},
       </if>
       <if test="merchantStatus != null">
         merchant_status = #{merchantStatus,jdbcType=TINYINT},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="signKey != null">
-        sign_key = #{signKey,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.MerchantWithBLOBs">
-    update zpay_merchant
-    set password = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=VARCHAR},
-      merchant_status = #{merchantStatus,jdbcType=TINYINT},
-      name = #{name,jdbcType=LONGVARCHAR},
-      sign_key = #{signKey,jdbcType=LONGVARCHAR},
-      remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.Merchant">
     update zpay_merchant
-    set password = #{password,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      sign_key = #{signKey,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=VARCHAR},
       merchant_status = #{merchantStatus,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}

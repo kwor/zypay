@@ -1,20 +1,30 @@
 package com.zy.base.dao;
 
 import com.zy.base.pojo.Merchant;
-import com.zy.base.pojo.MerchantWithBLOBs;
+import com.zy.base.pojo.MerchantExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface MerchantMapper {
+    long countByExample(MerchantExample example);
+
+    int deleteByExample(MerchantExample example);
+
     int deleteByPrimaryKey(Integer id);
 
-    int insert(MerchantWithBLOBs record);
+    int insert(Merchant record);
 
-    int insertSelective(MerchantWithBLOBs record);
+    int insertSelective(Merchant record);
 
-    MerchantWithBLOBs selectByPrimaryKey(Integer id);
+    List<Merchant> selectByExample(MerchantExample example);
 
-    int updateByPrimaryKeySelective(MerchantWithBLOBs record);
+    Merchant selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeyWithBLOBs(MerchantWithBLOBs record);
+    int updateByExampleSelective(@Param("record") Merchant record, @Param("example") MerchantExample example);
+
+    int updateByExample(@Param("record") Merchant record, @Param("example") MerchantExample example);
+
+    int updateByPrimaryKeySelective(Merchant record);
 
     int updateByPrimaryKey(Merchant record);
 }

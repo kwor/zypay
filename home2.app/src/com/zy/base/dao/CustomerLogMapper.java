@@ -1,20 +1,30 @@
 package com.zy.base.dao;
 
 import com.zy.base.pojo.CustomerLog;
-import com.zy.base.pojo.CustomerLogWithBLOBs;
+import com.zy.base.pojo.CustomerLogExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CustomerLogMapper {
+    long countByExample(CustomerLogExample example);
+
+    int deleteByExample(CustomerLogExample example);
+
     int deleteByPrimaryKey(Integer id);
 
-    int insert(CustomerLogWithBLOBs record);
+    int insert(CustomerLog record);
 
-    int insertSelective(CustomerLogWithBLOBs record);
+    int insertSelective(CustomerLog record);
 
-    CustomerLogWithBLOBs selectByPrimaryKey(Integer id);
+    List<CustomerLog> selectByExample(CustomerLogExample example);
 
-    int updateByPrimaryKeySelective(CustomerLogWithBLOBs record);
+    CustomerLog selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeyWithBLOBs(CustomerLogWithBLOBs record);
+    int updateByExampleSelective(@Param("record") CustomerLog record, @Param("example") CustomerLogExample example);
+
+    int updateByExample(@Param("record") CustomerLog record, @Param("example") CustomerLogExample example);
+
+    int updateByPrimaryKeySelective(CustomerLog record);
 
     int updateByPrimaryKey(CustomerLog record);
 }

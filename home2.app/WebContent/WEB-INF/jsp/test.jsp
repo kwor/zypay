@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>测试接口列表</title>
+<title>11111</title>
 </head>
 <body>
-<a href="/home2.app/customer/1/" >用户信息GET</a>
-<a href="/home2.app/customer/test/" >测试post到接口</a>
-<a href="/home2.app/customer/CustomerPostJson/" >测试post json到接口</a>
-<a href="/home2.app/customer/1/" >用户信息DELETE</a>
 
+<form action="/home2.app/customer" method="post">
+<input type="submit" value="submit" />
+</form>
 </body>
 </html>

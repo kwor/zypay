@@ -1,23 +1,14 @@
 package com.zy.base.controller;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
-
-import javax.annotation.Resource;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
-import org.apache.http.HttpHost;
-import org.apache.http.entity.StringEntity;
  
-
+import javax.annotation.Resource;
+ 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,13 +39,26 @@ public class CustomerController {
 		return JSON.toJSONString(customer);
 	}
 	
- 
+	@RequestMapping(value="/test", method = {RequestMethod.GET})
+	public ModelAndView CustomerTest(){
+		ModelAndView m=new ModelAndView();
+        m.setViewName("test");  
+
+		return m;
+	}
 	@RequestMapping("CustomerPostJson")
 	@ResponseBody
 	public String CustomerPostJson(){
-		
 		String url="http://localhost:7688/home2.app/customer";
-		String Params="{\"addTime\":\"\",\"mail\":\"kwor@163.com\",\"merchantId\":1,\"name\":\"test\",\"password\":\"111\",\"payKey\":\"1\",\"phone\":\"1700093933\",\"remark\":\"12\"}";
+		//String Params="{'name':'hello','password':'111111'}";
+		
+		JSONObject obj = new JSONObject();  
+	      
+		obj.put("name", "test");       
+		obj.put("password", "111111");  
+		   
+		   
+		   
 		    OutputStreamWriter out = null;
 	        BufferedReader reader = null;
 	        String response="";
@@ -65,8 +69,9 @@ public class CustomerController {
 	            //建立连接
 	            HttpURLConnection conn = (HttpURLConnection) httpUrl.openConnection();
 	            conn.setRequestMethod("POST");
+	           // conn.setRequestProperty("dataType", "json");
 	            conn.setRequestProperty("Content-Type", "application/json");
-	            conn.setRequestProperty("connection", "keep-alive");
+	           // conn.setRequestProperty("connection", "keep-alive");
 	            conn.setUseCaches(false);//设置不要缓存
 	            conn.setInstanceFollowRedirects(true);
 	            conn.setDoOutput(true);
@@ -75,7 +80,7 @@ public class CustomerController {
 	            //POST请求
 	            out = new OutputStreamWriter(
 	                    conn.getOutputStream());
-	            out.write(Params);
+	            out.write(obj.toString());
 	            out.flush();
 	            //读取响应
 	            reader = new BufferedReader(new InputStreamReader(
@@ -90,8 +95,8 @@ public class CustomerController {
 	            conn.disconnect();
 	            //输出结果
 	            System.out.println(response);
-	            
 	        } catch (Exception e) {
+	        System.out.println(obj.toString());
 	        System.out.println("发送 POST 请求出现异常！"+e);
 	        e.printStackTrace();
 	        }
@@ -109,20 +114,18 @@ public class CustomerController {
 	            ex.printStackTrace();
 	        }
 	    }
-
 	       return response;
-	 }
-    
-	 
-	
-	
-	
-	@RequestMapping( method = RequestMethod.POST )
+	}
+ 
+	@RequestMapping( method = RequestMethod.POST,consumes = "application/json" )
 	@ResponseStatus( HttpStatus.CREATED )
 	@ResponseBody
-	public int create( @RequestBody Customer resource ){
-		Preconditions.checkNotNull( resource );
+	public int create(@RequestBody Customer resource ){
+		//Preconditions.checkNotNull( resource );
+		System.out.println("测试数据"+resource.getName());
+		//System.out.println(resource.getPassword());
 	    return customerService.create(resource);
+		//return "测试数据"+resource;
 	}
 	
 	

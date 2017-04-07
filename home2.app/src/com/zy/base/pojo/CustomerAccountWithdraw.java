@@ -9,7 +9,13 @@ public class CustomerAccountWithdraw {
 
     private BigDecimal amount;
 
+    private String remark;
+
     private String status;
+
+    private String addTime;
+
+    private String upTime;
 
     private String orderId;
 
@@ -43,12 +49,36 @@ public class CustomerAccountWithdraw {
         this.amount = amount;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime == null ? null : addTime.trim();
+    }
+
+    public String getUpTime() {
+        return upTime;
+    }
+
+    public void setUpTime(String upTime) {
+        this.upTime = upTime == null ? null : upTime.trim();
     }
 
     public String getOrderId() {

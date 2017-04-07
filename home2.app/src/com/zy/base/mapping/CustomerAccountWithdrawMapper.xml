@@ -5,28 +5,94 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="customer_id" jdbcType="INTEGER" property="customerId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="up_time" jdbcType="VARCHAR" property="upTime" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="fee" jdbcType="DECIMAL" property="fee" />
     <result column="fee_taken_on" jdbcType="TINYINT" property="feeTakenOn" />
     <result column="return_url" jdbcType="VARCHAR" property="returnUrl" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs">
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
-    <result column="add_time" jdbcType="LONGVARCHAR" property="addTime" />
-    <result column="up_time" jdbcType="LONGVARCHAR" property="upTime" />
-  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List">
-    id, customer_id, amount, status, order_id, fee, fee_taken_on, return_url
+    id, customer_id, amount, remark, status, add_time, up_time, order_id, fee, fee_taken_on, 
+    return_url
   </sql>
-  <sql id="Blob_Column_List">
-    remark, add_time, up_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExample" parameterType="com.zy.base.pojo.CustomerAccountWithdrawExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zpay_customer_account_withdraw
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_customer_account_withdraw
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -34,17 +100,23 @@
     delete from zpay_customer_account_withdraw
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs">
+  <delete id="deleteByExample" parameterType="com.zy.base.pojo.CustomerAccountWithdrawExample">
+    delete from zpay_customer_account_withdraw
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccountWithdraw">
     insert into zpay_customer_account_withdraw (id, customer_id, amount, 
-      status, order_id, fee, 
-      fee_taken_on, return_url, remark, 
-      add_time, up_time)
+      remark, status, add_time, 
+      up_time, order_id, fee, 
+      fee_taken_on, return_url)
     values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{status,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, 
-      #{feeTakenOn,jdbcType=TINYINT}, #{returnUrl,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}, 
-      #{addTime,jdbcType=LONGVARCHAR}, #{upTime,jdbcType=LONGVARCHAR})
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{upTime,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, 
+      #{feeTakenOn,jdbcType=TINYINT}, #{returnUrl,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs">
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountWithdraw">
     insert into zpay_customer_account_withdraw
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -56,8 +128,17 @@
       <if test="amount != null">
         amount,
       </if>
+      <if test="remark != null">
+        remark,
+      </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="upTime != null">
+        up_time,
       </if>
       <if test="orderId != null">
         order_id,
@@ -71,15 +152,6 @@
       <if test="returnUrl != null">
         return_url,
       </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="upTime != null">
-        up_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -91,8 +163,17 @@
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="upTime != null">
+        #{upTime,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
@@ -106,18 +187,73 @@
       <if test="returnUrl != null">
         #{returnUrl,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="upTime != null">
-        #{upTime,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs">
+  <select id="countByExample" parameterType="com.zy.base.pojo.CustomerAccountWithdrawExample" resultType="java.lang.Long">
+    select count(*) from zpay_customer_account_withdraw
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zpay_customer_account_withdraw
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upTime != null">
+        up_time = #{record.upTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fee != null">
+        fee = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeTakenOn != null">
+        fee_taken_on = #{record.feeTakenOn,jdbcType=TINYINT},
+      </if>
+      <if test="record.returnUrl != null">
+        return_url = #{record.returnUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zpay_customer_account_withdraw
+    set id = #{record.id,jdbcType=INTEGER},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      up_time = #{record.upTime,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      fee = #{record.fee,jdbcType=DECIMAL},
+      fee_taken_on = #{record.feeTakenOn,jdbcType=TINYINT},
+      return_url = #{record.returnUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerAccountWithdraw">
     update zpay_customer_account_withdraw
     <set>
       <if test="customerId != null">
@@ -126,8 +262,17 @@
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="upTime != null">
+        up_time = #{upTime,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=VARCHAR},
@@ -141,37 +286,17 @@
       <if test="returnUrl != null">
         return_url = #{returnUrl,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="upTime != null">
-        up_time = #{upTime,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountWithdrawWithBLOBs">
-    update zpay_customer_account_withdraw
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      status = #{status,jdbcType=VARCHAR},
-      order_id = #{orderId,jdbcType=VARCHAR},
-      fee = #{fee,jdbcType=DECIMAL},
-      fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
-      return_url = #{returnUrl,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=LONGVARCHAR},
-      add_time = #{addTime,jdbcType=LONGVARCHAR},
-      up_time = #{upTime,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountWithdraw">
     update zpay_customer_account_withdraw
     set customer_id = #{customerId,jdbcType=INTEGER},
       amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      up_time = #{upTime,jdbcType=VARCHAR},
       order_id = #{orderId,jdbcType=VARCHAR},
       fee = #{fee,jdbcType=DECIMAL},
       fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},

@@ -4,25 +4,90 @@
   <resultMap id="BaseResultMap" type="com.zy.base.pojo.CustomerLog">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="requestparams" jdbcType="VARCHAR" property="requestparams" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerLogWithBLOBs">
-    <result column="url" jdbcType="LONGVARCHAR" property="url" />
-    <result column="requestparams" jdbcType="LONGVARCHAR" property="requestparams" />
-    <result column="sign" jdbcType="LONGVARCHAR" property="sign" />
-  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List">
-    id, customer_id, add_time, status
+    id, customer_id, url, add_time, requestparams, sign, status
   </sql>
-  <sql id="Blob_Column_List">
-    url, requestparams, sign
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExample" parameterType="com.zy.base.pojo.CustomerLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zpay_customer_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_customer_log
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -30,15 +95,21 @@
     delete from zpay_customer_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zy.base.pojo.CustomerLogWithBLOBs">
-    insert into zpay_customer_log (id, customer_id, add_time, 
-      status, url, requestparams, 
-      sign)
-    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{url,jdbcType=LONGVARCHAR}, #{requestparams,jdbcType=LONGVARCHAR}, 
-      #{sign,jdbcType=LONGVARCHAR})
+  <delete id="deleteByExample" parameterType="com.zy.base.pojo.CustomerLogExample">
+    delete from zpay_customer_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zy.base.pojo.CustomerLog">
+    insert into zpay_customer_log (id, customer_id, url, 
+      add_time, requestparams, sign, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=VARCHAR}, #{requestparams,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerLogWithBLOBs">
+  <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerLog">
     insert into zpay_customer_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,20 +118,20 @@
       <if test="customerId != null">
         customer_id,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
       <if test="url != null">
         url,
+      </if>
+      <if test="addTime != null">
+        add_time,
       </if>
       <if test="requestparams != null">
         requestparams,
       </if>
       <if test="sign != null">
         sign,
+      </if>
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -70,61 +141,102 @@
       <if test="customerId != null">
         #{customerId,jdbcType=INTEGER},
       </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="requestparams != null">
+        #{requestparams,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="url != null">
-        #{url,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="requestparams != null">
-        #{requestparams,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="sign != null">
-        #{sign,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerLogWithBLOBs">
+  <select id="countByExample" parameterType="com.zy.base.pojo.CustomerLogExample" resultType="java.lang.Long">
+    select count(*) from zpay_customer_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zpay_customer_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestparams != null">
+        requestparams = #{record.requestparams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sign != null">
+        sign = #{record.sign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zpay_customer_log
+    set id = #{record.id,jdbcType=INTEGER},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      requestparams = #{record.requestparams,jdbcType=VARCHAR},
+      sign = #{record.sign,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.base.pojo.CustomerLog">
     update zpay_customer_log
     <set>
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=INTEGER},
       </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="requestparams != null">
+        requestparams = #{requestparams,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="url != null">
-        url = #{url,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="requestparams != null">
-        requestparams = #{requestparams,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="sign != null">
-        sign = #{sign,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerLogWithBLOBs">
-    update zpay_customer_log
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      url = #{url,jdbcType=LONGVARCHAR},
-      requestparams = #{requestparams,jdbcType=LONGVARCHAR},
-      sign = #{sign,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerLog">
     update zpay_customer_log
     set customer_id = #{customerId,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=VARCHAR},
+      requestparams = #{requestparams,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

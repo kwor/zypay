@@ -1,7 +1,6 @@
 package com.zy.base.service.impl;
 
 import com.zy.base.pojo.Customer;
-import com.zy.base.pojo.CustomerWithBLOBs;
 import com.zy.base.service.ICustomerService;
 
 import javax.annotation.Resource;
@@ -23,7 +22,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	public  int create( @RequestBody Customer resource ){
 		//
-	    return  customerDao.insert((CustomerWithBLOBs) resource);
+	    return  customerDao.insert(resource);
 	}
  
 }
