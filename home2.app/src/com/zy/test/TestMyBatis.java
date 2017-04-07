@@ -16,21 +16,22 @@ import com.zy.base.service.ICustomerService;
 
 public class TestMyBatis {
 	private static Logger logger = Logger.getLogger(TestMyBatis.class);
-//	private ApplicationContext ac = null;
-	@Resource
+ 	@Resource
 	private ICustomerService customerService = null;
-
-//	@Before
-//	public void before() {
-//		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-//		userService = (IUserService) ac.getBean("userService");
-//	}
+ 
 
 	@Test
 	public void test1() {
-		Customer customer = customerService.getCustomerById(1);
-		// System.out.println(user.getUserName());
-		// logger.info("值："+user.getUserName());
-		logger.info(JSON.toJSONString(customer));
+		Customer customer = customerService.findOne(1);
+ 		logger.info(JSON.toJSONString(customer));
 	}
+	
+	
+	/*
+	@Test
+	public void test2() {
+		Customer customer = customerService.create(resource);
+ 		logger.info(JSON.toJSONString(customer));
+	}
+	*/
 }
