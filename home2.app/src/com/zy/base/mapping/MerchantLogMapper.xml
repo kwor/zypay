@@ -6,9 +6,7 @@
     <result column="merchant_id" jdbcType="INTEGER" property="merchantId" />
     <result column="login_time" jdbcType="VARCHAR" property="loginTime" />
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.MerchantLog">
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,27 +67,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, merchant_id, login_time, login_ip
+    id, merchant_id, login_time, login_ip, remark
   </sql>
-  <sql id="Blob_Column_List">
-    remark
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.zy.base.pojo.MerchantLogExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from zpay_merchant_log
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.zy.base.pojo.MerchantLogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -104,11 +83,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_merchant_log
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -126,7 +103,7 @@
     insert into zpay_merchant_log (id, merchant_id, login_time, 
       login_ip, remark)
     values (#{id,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{loginTime,jdbcType=VARCHAR}, 
-      #{loginIp,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
+      #{loginIp,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zy.base.pojo.MerchantLog">
     insert into zpay_merchant_log
@@ -161,7 +138,7 @@
         #{loginIp,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -187,20 +164,9 @@
         login_ip = #{record.loginIp,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=LONGVARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update zpay_merchant_log
-    set id = #{record.id,jdbcType=INTEGER},
-      merchant_id = #{record.merchantId,jdbcType=INTEGER},
-      login_time = #{record.loginTime,jdbcType=VARCHAR},
-      login_ip = #{record.loginIp,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       merchant_id = #{record.merchantId,jdbcType=INTEGER},
       login_time = #{record.loginTime,jdbcType=VARCHAR},
-      login_ip = #{record.loginIp,jdbcType=VARCHAR}
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -228,24 +195,17 @@
         login_ip = #{loginIp,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.MerchantLog">
-    update zpay_merchant_log
-    set merchant_id = #{merchantId,jdbcType=INTEGER},
-      login_time = #{loginTime,jdbcType=VARCHAR},
-      login_ip = #{loginIp,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.MerchantLog">
     update zpay_merchant_log
     set merchant_id = #{merchantId,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=VARCHAR},
-      login_ip = #{loginIp,jdbcType=VARCHAR}
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

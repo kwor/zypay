@@ -16,21 +16,15 @@ public interface CustomerAccountRechargeMapper {
 
     int insertSelective(CustomerAccountRecharge record);
 
-    List<CustomerAccountRecharge> selectByExampleWithBLOBs(CustomerAccountRechargeExample example);
-
     List<CustomerAccountRecharge> selectByExample(CustomerAccountRechargeExample example);
 
     CustomerAccountRecharge selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CustomerAccountRecharge record, @Param("example") CustomerAccountRechargeExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") CustomerAccountRecharge record, @Param("example") CustomerAccountRechargeExample example);
-
     int updateByExample(@Param("record") CustomerAccountRecharge record, @Param("example") CustomerAccountRechargeExample example);
 
     int updateByPrimaryKeySelective(CustomerAccountRecharge record);
-
-    int updateByPrimaryKeyWithBLOBs(CustomerAccountRecharge record);
 
     int updateByPrimaryKey(CustomerAccountRecharge record);
 }

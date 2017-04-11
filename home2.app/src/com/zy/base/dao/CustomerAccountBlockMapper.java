@@ -16,21 +16,15 @@ public interface CustomerAccountBlockMapper {
 
     int insertSelective(CustomerAccountBlock record);
 
-    List<CustomerAccountBlock> selectByExampleWithBLOBs(CustomerAccountBlockExample example);
-
     List<CustomerAccountBlock> selectByExample(CustomerAccountBlockExample example);
 
     CustomerAccountBlock selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CustomerAccountBlock record, @Param("example") CustomerAccountBlockExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") CustomerAccountBlock record, @Param("example") CustomerAccountBlockExample example);
-
     int updateByExample(@Param("record") CustomerAccountBlock record, @Param("example") CustomerAccountBlockExample example);
 
     int updateByPrimaryKeySelective(CustomerAccountBlock record);
-
-    int updateByPrimaryKeyWithBLOBs(CustomerAccountBlock record);
 
     int updateByPrimaryKey(CustomerAccountBlock record);
 }

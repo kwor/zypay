@@ -6,6 +6,7 @@
     <result column="customer_id" jdbcType="INTEGER" property="customerId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="VARCHAR" property="addTime" />
     <result column="up_time" jdbcType="VARCHAR" property="upTime" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
@@ -13,9 +14,6 @@
     <result column="fee_taken_on" jdbcType="TINYINT" property="feeTakenOn" />
     <result column="page_url" jdbcType="VARCHAR" property="pageUrl" />
     <result column="return_url" jdbcType="VARCHAR" property="returnUrl" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerAccountRecharge">
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,28 +74,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, customer_id, amount, status, add_time, up_time, order_id, fee, fee_taken_on, 
+    id, customer_id, amount, status, remark, add_time, up_time, order_id, fee, fee_taken_on, 
     page_url, return_url
   </sql>
-  <sql id="Blob_Column_List">
-    remark
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountRechargeExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from zpay_customer_account_recharge
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.zy.base.pojo.CustomerAccountRechargeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -112,11 +91,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_customer_account_recharge
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -132,14 +109,14 @@
   </delete>
   <insert id="insert" parameterType="com.zy.base.pojo.CustomerAccountRecharge">
     insert into zpay_customer_account_recharge (id, customer_id, amount, 
-      status, add_time, up_time, 
-      order_id, fee, fee_taken_on, 
-      page_url, return_url, remark
+      status, remark, add_time, 
+      up_time, order_id, fee, 
+      fee_taken_on, page_url, return_url
       )
     values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{status,jdbcType=TINYINT}, #{addTime,jdbcType=VARCHAR}, #{upTime,jdbcType=VARCHAR}, 
-      #{orderId,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{feeTakenOn,jdbcType=TINYINT}, 
-      #{pageUrl,jdbcType=VARCHAR}, #{returnUrl,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{upTime,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, 
+      #{feeTakenOn,jdbcType=TINYINT}, #{pageUrl,jdbcType=VARCHAR}, #{returnUrl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountRecharge">
@@ -156,6 +133,9 @@
       </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="addTime != null">
         add_time,
@@ -178,9 +158,6 @@
       <if test="returnUrl != null">
         return_url,
       </if>
-      <if test="remark != null">
-        remark,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -194,6 +171,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=VARCHAR},
@@ -215,9 +195,6 @@
       </if>
       <if test="returnUrl != null">
         #{returnUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -242,6 +219,9 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=TINYINT},
       </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=VARCHAR},
       </if>
@@ -263,28 +243,7 @@
       <if test="record.returnUrl != null">
         return_url = #{record.returnUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update zpay_customer_account_recharge
-    set id = #{record.id,jdbcType=INTEGER},
-      customer_id = #{record.customerId,jdbcType=INTEGER},
-      amount = #{record.amount,jdbcType=DECIMAL},
-      status = #{record.status,jdbcType=TINYINT},
-      add_time = #{record.addTime,jdbcType=VARCHAR},
-      up_time = #{record.upTime,jdbcType=VARCHAR},
-      order_id = #{record.orderId,jdbcType=VARCHAR},
-      fee = #{record.fee,jdbcType=DECIMAL},
-      fee_taken_on = #{record.feeTakenOn,jdbcType=TINYINT},
-      page_url = #{record.pageUrl,jdbcType=VARCHAR},
-      return_url = #{record.returnUrl,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -295,6 +254,7 @@
       customer_id = #{record.customerId,jdbcType=INTEGER},
       amount = #{record.amount,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=VARCHAR},
       up_time = #{record.upTime,jdbcType=VARCHAR},
       order_id = #{record.orderId,jdbcType=VARCHAR},
@@ -318,6 +278,9 @@
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=VARCHAR},
       </if>
@@ -339,25 +302,7 @@
       <if test="returnUrl != null">
         return_url = #{returnUrl,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountRecharge">
-    update zpay_customer_account_recharge
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      status = #{status,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=VARCHAR},
-      up_time = #{upTime,jdbcType=VARCHAR},
-      order_id = #{orderId,jdbcType=VARCHAR},
-      fee = #{fee,jdbcType=DECIMAL},
-      fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
-      page_url = #{pageUrl,jdbcType=VARCHAR},
-      return_url = #{returnUrl,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountRecharge">
@@ -365,6 +310,7 @@
     set customer_id = #{customerId,jdbcType=INTEGER},
       amount = #{amount,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=VARCHAR},
       up_time = #{upTime,jdbcType=VARCHAR},
       order_id = #{orderId,jdbcType=VARCHAR},

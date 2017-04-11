@@ -10,9 +10,7 @@
     <result column="add_time" jdbcType="VARCHAR" property="addTime" />
     <result column="up_time" jdbcType="VARCHAR" property="upTime" />
     <result column="bank_status" jdbcType="TINYINT" property="bankStatus" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerAccountBank">
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,27 +71,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, customer_id, bank_account, bank_name, bank_code, add_time, up_time, bank_status
-  </sql>
-  <sql id="Blob_Column_List">
+    id, customer_id, bank_account, bank_name, bank_code, add_time, up_time, bank_status, 
     remark
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountBankExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from zpay_customer_account_bank
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.zy.base.pojo.CustomerAccountBankExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -108,11 +88,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_customer_account_bank
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -133,7 +111,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{bankAccount,jdbcType=VARCHAR}, 
       #{bankName,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
-      #{upTime,jdbcType=VARCHAR}, #{bankStatus,jdbcType=TINYINT}, #{remark,jdbcType=LONGVARCHAR}
+      #{upTime,jdbcType=VARCHAR}, #{bankStatus,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountBank">
@@ -193,7 +171,7 @@
         #{bankStatus,jdbcType=TINYINT},
       </if>
       <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,24 +209,9 @@
         bank_status = #{record.bankStatus,jdbcType=TINYINT},
       </if>
       <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=LONGVARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update zpay_customer_account_bank
-    set id = #{record.id,jdbcType=INTEGER},
-      customer_id = #{record.customerId,jdbcType=INTEGER},
-      bank_account = #{record.bankAccount,jdbcType=VARCHAR},
-      bank_name = #{record.bankName,jdbcType=VARCHAR},
-      bank_code = #{record.bankCode,jdbcType=VARCHAR},
-      add_time = #{record.addTime,jdbcType=VARCHAR},
-      up_time = #{record.upTime,jdbcType=VARCHAR},
-      bank_status = #{record.bankStatus,jdbcType=TINYINT},
-      remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -262,7 +225,8 @@
       bank_code = #{record.bankCode,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=VARCHAR},
       up_time = #{record.upTime,jdbcType=VARCHAR},
-      bank_status = #{record.bankStatus,jdbcType=TINYINT}
+      bank_status = #{record.bankStatus,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -292,21 +256,9 @@
         bank_status = #{bankStatus,jdbcType=TINYINT},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountBank">
-    update zpay_customer_account_bank
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      bank_account = #{bankAccount,jdbcType=VARCHAR},
-      bank_name = #{bankName,jdbcType=VARCHAR},
-      bank_code = #{bankCode,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=VARCHAR},
-      up_time = #{upTime,jdbcType=VARCHAR},
-      bank_status = #{bankStatus,jdbcType=TINYINT},
-      remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountBank">
@@ -317,7 +269,8 @@
       bank_code = #{bankCode,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=VARCHAR},
       up_time = #{upTime,jdbcType=VARCHAR},
-      bank_status = #{bankStatus,jdbcType=TINYINT}
+      bank_status = #{bankStatus,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

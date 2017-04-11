@@ -11,9 +11,7 @@
     <result column="fee_taken_on" jdbcType="TINYINT" property="feeTakenOn" />
     <result column="add_time" jdbcType="VARCHAR" property="addTime" />
     <result column="status" jdbcType="TINYINT" property="status" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zy.base.pojo.CustomerAccountTransfer">
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,27 +73,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, order_id, payer_customer_id, payee_customer_id, amount, fee, fee_taken_on, add_time, 
-    status
+    status, remark
   </sql>
-  <sql id="Blob_Column_List">
-    remark
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountTransferExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from zpay_customer_account_transfer
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.zy.base.pojo.CustomerAccountTransferExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -110,11 +89,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from zpay_customer_account_transfer
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -136,7 +113,7 @@
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{payerCustomerId,jdbcType=INTEGER}, 
       #{payeeCustomerId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
       #{feeTakenOn,jdbcType=TINYINT}, #{addTime,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{remark,jdbcType=LONGVARCHAR})
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
     insert into zpay_customer_account_transfer
@@ -201,7 +178,7 @@
         #{status,jdbcType=TINYINT},
       </if>
       <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -242,25 +219,9 @@
         status = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=LONGVARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update zpay_customer_account_transfer
-    set id = #{record.id,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=VARCHAR},
-      payer_customer_id = #{record.payerCustomerId,jdbcType=INTEGER},
-      payee_customer_id = #{record.payeeCustomerId,jdbcType=INTEGER},
-      amount = #{record.amount,jdbcType=DECIMAL},
-      fee = #{record.fee,jdbcType=DECIMAL},
-      fee_taken_on = #{record.feeTakenOn,jdbcType=TINYINT},
-      add_time = #{record.addTime,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
-      remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,7 +236,8 @@
       fee = #{record.fee,jdbcType=DECIMAL},
       fee_taken_on = #{record.feeTakenOn,jdbcType=TINYINT},
       add_time = #{record.addTime,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT}
+      status = #{record.status,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -308,22 +270,9 @@
         status = #{status,jdbcType=TINYINT},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=LONGVARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
-    update zpay_customer_account_transfer
-    set order_id = #{orderId,jdbcType=VARCHAR},
-      payer_customer_id = #{payerCustomerId,jdbcType=INTEGER},
-      payee_customer_id = #{payeeCustomerId,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      fee = #{fee,jdbcType=DECIMAL},
-      fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zy.base.pojo.CustomerAccountTransfer">
@@ -335,7 +284,8 @@
       fee = #{fee,jdbcType=DECIMAL},
       fee_taken_on = #{feeTakenOn,jdbcType=TINYINT},
       add_time = #{addTime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT}
+      status = #{status,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

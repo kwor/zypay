@@ -16,21 +16,15 @@ public interface MerchantLogMapper {
 
     int insertSelective(MerchantLog record);
 
-    List<MerchantLog> selectByExampleWithBLOBs(MerchantLogExample example);
-
     List<MerchantLog> selectByExample(MerchantLogExample example);
 
     MerchantLog selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") MerchantLog record, @Param("example") MerchantLogExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") MerchantLog record, @Param("example") MerchantLogExample example);
-
     int updateByExample(@Param("record") MerchantLog record, @Param("example") MerchantLogExample example);
 
     int updateByPrimaryKeySelective(MerchantLog record);
-
-    int updateByPrimaryKeyWithBLOBs(MerchantLog record);
 
     int updateByPrimaryKey(MerchantLog record);
 }

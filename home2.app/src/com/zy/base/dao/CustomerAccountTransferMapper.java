@@ -16,21 +16,15 @@ public interface CustomerAccountTransferMapper {
 
     int insertSelective(CustomerAccountTransfer record);
 
-    List<CustomerAccountTransfer> selectByExampleWithBLOBs(CustomerAccountTransferExample example);
-
     List<CustomerAccountTransfer> selectByExample(CustomerAccountTransferExample example);
 
     CustomerAccountTransfer selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CustomerAccountTransfer record, @Param("example") CustomerAccountTransferExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") CustomerAccountTransfer record, @Param("example") CustomerAccountTransferExample example);
-
     int updateByExample(@Param("record") CustomerAccountTransfer record, @Param("example") CustomerAccountTransferExample example);
 
     int updateByPrimaryKeySelective(CustomerAccountTransfer record);
-
-    int updateByPrimaryKeyWithBLOBs(CustomerAccountTransfer record);
 
     int updateByPrimaryKey(CustomerAccountTransfer record);
 }

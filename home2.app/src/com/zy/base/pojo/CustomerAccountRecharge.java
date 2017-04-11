@@ -11,6 +11,8 @@ public class CustomerAccountRecharge {
 
     private Byte status;
 
+    private String remark;
+
     private String addTime;
 
     private String upTime;
@@ -24,8 +26,6 @@ public class CustomerAccountRecharge {
     private String pageUrl;
 
     private String returnUrl;
-
-    private String remark;
 
     public Integer getId() {
         return id;
@@ -57,6 +57,14 @@ public class CustomerAccountRecharge {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public String getAddTime() {
@@ -113,13 +121,5 @@ public class CustomerAccountRecharge {
 
     public void setReturnUrl(String returnUrl) {
         this.returnUrl = returnUrl == null ? null : returnUrl.trim();
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
     }
 }
