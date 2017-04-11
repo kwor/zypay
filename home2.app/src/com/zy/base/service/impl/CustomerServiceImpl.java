@@ -22,6 +22,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	public  int create( @RequestBody Customer resource ){
 		//
+		
 	    return  customerDao.insert(resource);
 	}
  

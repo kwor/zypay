@@ -23,11 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $('#postJsonBtn').click(function () {
     	//console.log(JSON.stringify({"name": "henry", "password": "12121221"}));
     	$.ajax({
-    		  url: 'http://localhost:7688/home2.app/customer',
+    		  url: 'http://localhost:8080/home2.app/customer',
     		  type: 'POST',
     		  contentType : "application/json; charset=utf-8",  
     		  dataType : "json" ,
-    		  data:JSON.stringify({"name": "henry", "password": "12121221","pay_key":"12312ddq212d!@#","mail":"kwor@163.com"}),
+    		  data:JSON.stringify({"merchantId":1,"name": "henry", "password": "12121221","payKey":"111122121","phone":"13221952583","remark":"beij","addTime":Date.parse(new Date()),"customerStatus":1}),
       	 success:function(data) {
       		 $('#content').html(data);
            },
@@ -43,11 +43,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     $('#putJsonBtn').click(function () {
     	$.ajax({
-  		  url: 'http://localhost:7688/home2.app/customer/1',
+  		  url: 'http://localhost:8080/home2.app/customer/1',
   		  type: 'PUT',
   		  contentType : "application/json ; charset=utf-8",  
   		  dataType : "json" ,
-  		  data:JSON.stringify({"id":1,"name": "updd", "password": "223112121"}),
+  		  data:JSON.stringify({"id":1,"merchantId":1,"name": "henry1", "password": "12121221","payKey":"111122121","mail":"kwor@163.com","phone":"13221952583","remark":"beij","addTime":Date.parse(new Date()),"customerStatus":1}),
+
     	 success:function(data) {
     		 $('#content').html(data);
          },
@@ -58,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     $('#deleteJsonBtn').click(function () {
     	$.ajax({
-    		  url: 'http://localhost:7688/home2.app/customer/7',
+    		  url: 'http://localhost:8080/home2.app/customer/7',
     		  type: 'DELETE',
     	      success:function(data) {
     	    		 $('#content').html(data);

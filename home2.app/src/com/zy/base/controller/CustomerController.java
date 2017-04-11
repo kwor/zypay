@@ -1,7 +1,5 @@
 package com.zy.base.controller;
 
-
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.http.HttpStatus;
+ import org.springframework.http.HttpStatus;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
@@ -22,14 +20,13 @@ import com.zy.base.service.ICustomerService;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-	@Resource
+ 	@Resource
 	private ICustomerService customerService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
 		Customer customer = this.customerService.findOne(id);
-
 		return JSON.toJSONString(customer);
 	}
 
@@ -46,8 +43,9 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public int create(Customer resource) {
+	public int create(@RequestBody Customer resource) {
 		Preconditions.checkNotNull(resource);
+		//
 		return customerService.create(resource);
 	}
 
