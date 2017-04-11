@@ -22,31 +22,31 @@ public class CustomerServiceImpl implements ICustomerService {
 		// TODO Auto-generated method stub
 		return this.customerDao.selectByPrimaryKey(customerId);
 	}
-
+	@Override
 	public  int create( @RequestBody Customer resource ){
 		//
 		
 	    return  customerDao.insert(resource);
 	}
- 
+	@Override
 	public  int update( @RequestBody Customer resource ){
 		//
 	    return  customerDao.updateByPrimaryKey(resource);
 	}
  
-	
+	@Override
 	public  int delete( int customerId){
 		//
 	    return  customerDao.deleteByPrimaryKey(customerId);
 	}
- 
+	@Override
 	public int getById(int customerId){
 		//´ýÓÅ»¯
 		 Customer cu=customerDao.selectByPrimaryKey(customerId);
 		 return cu.getId();
 	}
 	
- 
+	@Override
 	public List<Customer> findAll(CustomerExample example){
 		
 		
