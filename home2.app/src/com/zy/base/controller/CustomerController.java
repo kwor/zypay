@@ -24,7 +24,6 @@ import com.zy.base.service.ICustomerService;
 public class CustomerController {
  	@Resource
 	private ICustomerService customerService;
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
@@ -54,7 +53,6 @@ public class CustomerController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@PathVariable("id") int id,@RequestBody Customer resource) {
-		
 		Preconditions.checkNotNull(resource);
 		//Preconditions.checkNotNull(customerService.getById(resource.getId()));
 		customerService.update(resource);
