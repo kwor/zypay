@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.dao.CustomerAccountRechargeMapper;
 import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
- 
-public class CustomerAccountRechargeServiceImpl implements ICustomerAccountRechargeService {
+ import com.zy.base.service.*;
+public class CustomerAccountRechargeServiceImpl implements ICustomerAccountRechargeService{
 	private CustomerAccountRechargeMapper customerAccoutRechargeDao;
 	/* (non-Javadoc)
 	 * @see com.zy.base.service.impl.ICustomerAccountRechargeService#create(com.zy.base.pojo.CustomerAccountRecharge)

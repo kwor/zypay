@@ -1,4 +1,4 @@
-package com.zy.base.service.impl;
+package com.zy.base.service;
 
 import java.util.List;
 
