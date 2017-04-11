@@ -1,11 +1,6 @@
 package com.zy.base.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 
 import javax.annotation.Resource;
 
@@ -51,20 +46,18 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public int create( Customer resource) {
+	public int create(Customer resource) {
 		Preconditions.checkNotNull(resource);
 		return customerService.create(resource);
-
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	public int update(@PathVariable("id") int id, Customer resource) {
+	public void update(@PathVariable("id") int id,@RequestBody Customer resource) {
 		
 		Preconditions.checkNotNull(resource);
 		//Preconditions.checkNotNull(customerService.getById(resource.getId()));
 		customerService.update(resource);
-		return id;
 	}
 	// */
 

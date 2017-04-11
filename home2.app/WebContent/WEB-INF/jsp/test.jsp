@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>post</title>
 </head>
 <body>
@@ -21,12 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="application/javascript">
    
     $('#postJsonBtn').click(function () {
+    	//console.log(JSON.stringify({"name": "henry", "password": "12121221"}));
     	$.ajax({
     		  url: 'http://localhost:7688/home2.app/customer',
     		  type: 'POST',
-    		  contentType : "application/json ; charset=utf-8",  
+    		  contentType : "application/json; charset=utf-8",  
     		  dataType : "json" ,
-    		  data:{"name": "henry", "password": "12121221"},
+    		  data:JSON.stringify({"name": "henry", "password": "12121221","pay_key":"12312ddq212d!@#","mail":"kwor@163.com"}),
       	 success:function(data) {
       		 $('#content').html(data);
            },
@@ -44,8 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	$.ajax({
   		  url: 'http://localhost:7688/home2.app/customer/1',
   		  type: 'PUT',
+  		  contentType : "application/json ; charset=utf-8",  
   		  dataType : "json" ,
-  		  data:{"name": "updd", "password": "223112121"},
+  		  data:JSON.stringify({"id":1,"name": "updd", "password": "223112121"}),
     	 success:function(data) {
     		 $('#content').html(data);
          },
