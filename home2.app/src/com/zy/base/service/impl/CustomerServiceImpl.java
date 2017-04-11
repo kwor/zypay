@@ -1,7 +1,10 @@
 package com.zy.base.service.impl;
 
 import com.zy.base.pojo.Customer;
+import com.zy.base.pojo.CustomerExample;
 import com.zy.base.service.ICustomerService;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -42,4 +45,12 @@ public class CustomerServiceImpl implements ICustomerService {
 		 Customer cu=customerDao.selectByPrimaryKey(customerId);
 		 return cu.getId();
 	}
+	
+ 
+	public List<Customer> findAll(CustomerExample example){
+		
+		
+		return customerDao.selectByExample(example);
+	}
+	 
 }

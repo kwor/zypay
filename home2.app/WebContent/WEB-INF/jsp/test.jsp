@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
- 
+
 <input id="postJsonBtn" type="button" value="post json">
 <input id="putJsonBtn" type="button" value="put json">
 <input id="deleteJsonBtn" type="button" value="delete json">

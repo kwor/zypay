@@ -1,5 +1,7 @@
 package com.zy.base.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -65,4 +67,10 @@ public class CustomerController {
 		customerService.delete(id);
 	}
 
+	 @RequestMapping( method = RequestMethod.GET )
+	 @ResponseBody
+	 public List< Customer > findAll(){
+	     return customerService.findAll(null);
+	 }
+	
 }
