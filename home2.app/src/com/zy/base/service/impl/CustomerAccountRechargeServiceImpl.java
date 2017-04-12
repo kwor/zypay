@@ -1,40 +1,38 @@
 package com.zy.base.service.impl;
 
 import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.dao.CustomerAccountRechargeMapper;
 import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
  import com.zy.base.service.*;
-public class CustomerAccountRechargeServiceImpl implements ICustomerAccountRechargeService{
+ @Service("customerAccountRechargeService")
+ public class CustomerAccountRechargeServiceImpl implements ICustomerAccountRechargeService{
+	@Resource
 	private CustomerAccountRechargeMapper customerAccoutRechargeDao;
-	/* (non-Javadoc)
-	 * @see com.zy.base.service.impl.ICustomerAccountRechargeService#create(com.zy.base.pojo.CustomerAccountRecharge)
-	 */
+	 
 	@Override
 	public int create( @RequestBody CustomerAccountRecharge resource ){
 		//
 	    return  customerAccoutRechargeDao.insert(resource);
 	}
-	/* (non-Javadoc)
-	 * @see com.zy.base.service.impl.ICustomerAccountRechargeService#update(com.zy.base.pojo.CustomerAccountRecharge)
-	 */
+ 
 	@Override
 	public int update( @RequestBody  CustomerAccountRecharge resource ){
-		//
-	    return  customerAccoutRechargeDao.updateByPrimaryKey(resource);
+		//更具id只更新状态，非全部（不提供全部更新）
+	    return  customerAccoutRechargeDao.updateByPrimaryKeySelective(resource);
 	}
-	/* (non-Javadoc)
-	 * @see com.zy.base.service.impl.ICustomerAccountRechargeService#findAll(com.zy.base.pojo.CustomerAccountRechargeExample)
-	 */
+	 
 	@Override
 	public List<CustomerAccountRecharge> findAll(CustomerAccountRechargeExample example){
 		//
 		return customerAccoutRechargeDao.selectByExample(example);
 	}
-	/* (non-Javadoc)
-	 * @see com.zy.base.service.impl.ICustomerAccountRechargeService#findOne(int)
-	 */
+ 
 	@Override
 	public CustomerAccountRecharge findOne(int customerAccoutRechargeId) {
 		// TODO Auto-generated method stub

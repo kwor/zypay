@@ -9,12 +9,14 @@ import com.zy.base.pojo.CustomerAccountRechargeExample;
 
 public interface ICustomerAccountRechargeService {
 
-	int create(CustomerAccountRecharge resource);
+	CustomerAccountRecharge findOne(int customerAccoutRechargeId);
+	
+	int create(@RequestBody CustomerAccountRecharge resource);
 
-	int update(CustomerAccountRecharge resource);
+	int update(@RequestBody CustomerAccountRecharge resource);
 
 	List<CustomerAccountRecharge> findAll(CustomerAccountRechargeExample example);
 
-	CustomerAccountRecharge findOne(int customerAccoutRechargeId);
+	
 
 }
