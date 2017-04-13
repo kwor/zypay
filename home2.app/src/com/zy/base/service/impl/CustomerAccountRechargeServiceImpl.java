@@ -23,7 +23,7 @@ import com.zy.base.pojo.CustomerAccountRechargeExample;
  
 	@Override
 	public int update( @RequestBody  CustomerAccountRecharge resource ){
-		//更具id只更新状态，非全部（不提供全部更新）
+		//根据id只更新状态
 	    return  customerAccoutRechargeDao.updateByPrimaryKeySelective(resource);
 	}
 	 

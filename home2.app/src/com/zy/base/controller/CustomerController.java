@@ -27,6 +27,7 @@ public class CustomerController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
+		Preconditions.checkArgument(id>0,"id必须大于0");
 		Customer customer = this.customerService.findOne(id);
 		return JSON.toJSONString(customer);
 	}
@@ -54,6 +55,8 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@PathVariable("id") int id,@RequestBody Customer resource) {
 		Preconditions.checkNotNull(resource);
+		Preconditions.checkArgument(id>0,"id必须大于0");
+
 		//Preconditions.checkNotNull(customerService.getById(resource.getId()));
 		customerService.update(resource);
 	}
@@ -62,6 +65,7 @@ public class CustomerController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable("id") int id) {
+		Preconditions.checkArgument(id>0,"id必须大于0");
 		customerService.delete(id);
 	}
 

@@ -90,6 +90,8 @@
 			<artifactId>guava</artifactId>
 			<version>21.0</version>
 		</dependency>
+ 
+ 
 		<!-- java http http请求模拟依赖 -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

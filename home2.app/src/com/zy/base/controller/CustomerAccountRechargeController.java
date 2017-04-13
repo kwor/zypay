@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-
+import com.google.common.base.Preconditions;
 import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
 import com.zy.base.service.ICustomerAccountRechargeService;
@@ -26,6 +26,7 @@ public class CustomerAccountRechargeController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
+		Preconditions.checkArgument(id>0,"id 必须大于0");
 		CustomerAccountRecharge customerAccountRecharge = this.customerAccountRechargeService.findOne(id);
 		return JSON.toJSONString(customerAccountRecharge);
 	}
@@ -34,6 +35,7 @@ public class CustomerAccountRechargeController {
 	@RequestMapping(value = "/customerid/{customerid}", method = RequestMethod.GET)
 	@ResponseBody
 	public List< CustomerAccountRecharge > findOneById(@PathVariable("customerid") int customerid) {
+		Preconditions.checkArgument(customerid>0,"customerid 必须大于0");
 		CustomerAccountRechargeExample example=new CustomerAccountRechargeExample();
 		example.createCriteria().andCustomerIdEqualTo(customerid);
 		return customerAccountRechargeService.findAll(example);

@@ -7,10 +7,14 @@
 <title>测试接口列表</title>
 </head>
 <body>
-<a href="/home2.app/customer/1" >用户信息GET</a>
-<a href="/home2.app/customer">用户信息列表获取GET</a>
-<a href="/home2.app/customer/test/" >测试post到接口</a>
-<a href="/home2.app/customerAccountRecharge/customerid/1" >获取用户充值记录列表GET</a>
-<a href="/home2.app/customerAccountRecharge/1" >获取单条充值记录列表GET</a>
+<a href="/home2.app/customer/1" >用户信息GET</a><br/>
+<a href="/home2.app/customer">用户信息列表获取GET</a><br/>
+<a href="/home2.app/customer/test/" >测试post到接口</a><br/>
+<a href="/home2.app/customerAccountRecharge/customerid/1" >获取用户充值记录列表GET</a><br/>
+<a href="/home2.app/customerAccountRecharge/1" >获取单条充值记录列表GET</a><br/>
+
+<a href="/home2.app/createkey/" >本地密钥文件生成</a><br/>
+<a href="/home2.app/getsign/" >私钥签名</a><br/>
+<a href="/home2.app/checksign/" >公钥校验</a>
 </body>
 </html>

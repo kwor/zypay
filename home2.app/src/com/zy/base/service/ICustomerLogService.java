@@ -9,7 +9,7 @@ import com.zy.base.pojo.CustomerLogExample;
 
 public interface ICustomerLogService {
 
-	CustomerLog findOne(int customerAccoutRechargeId);
+	CustomerLog findOne(int customerLogId);
 	
 	int create(@RequestBody CustomerLog resource);
 
