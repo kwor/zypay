@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zy.base.utils.RSAEncrypt;
 import com.zy.base.utils.RSASignature;
@@ -30,6 +31,23 @@ public class IndexController {
     public String createkey(){  
         return "createkey";
     }  
+
+	/*
+	 * ≤‚ ‘postÃ·Ωª“≥√Ê
+	 */
+	@RequestMapping(value = "/test", method = { RequestMethod.GET })
+	public ModelAndView CustomerTest() throws Exception {
+		ModelAndView m = new ModelAndView();
+		String keypath="D:";
+		long timenow=System.currentTimeMillis();
+		String content="{\"merchantId\":1,\"name\": \"henry\", \"password\": \"12121221\",\"payKey\":\"111122121\",\"phone\":\"13221952583\",\"remark\":\"beij\",\"addTime\":"+timenow+",\"customerStatus\":1}";
+		String signstr=RSASignature.sign(content,RSAEncrypt.loadPrivateKeyByFile(keypath));
+
+		m.addObject("content", content);
+		m.addObject("signstr", signstr);
+		m.setViewName("test");
+		return m;
+	}
 
     
     /*

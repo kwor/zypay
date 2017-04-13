@@ -13,21 +13,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
-<input id="postJsonBtn" type="button" value="post json">
+<!-- <input id="postJsonBtn" type="button" value="post json"> -->
+<form action="/home2.app/customer" method="post">
+密文：<textarea rows="10" cols="50" name="signstr" >${signstr}</textarea><br/><br/>
+明文：<textarea rows="10" cols="50" name="content" >${content}</textarea><br/><br/>
+<input type="submit" name="测试" />
+</form>
+
+
+
 <input id="putJsonBtn" type="button" value="put json">
 <input id="deleteJsonBtn" type="button" value="delete json">
 
 <div id="content"></div>
 <script type="application/javascript">
-   
+  /* 
     $('#postJsonBtn').click(function () {
     	//console.log(JSON.stringify({"name": "henry", "password": "12121221"}));
     	$.ajax({
     		  url: 'http://localhost:8080/home2.app/customer',
     		  type: 'POST',
-    		  contentType : "application/json; charset=utf-8",  
-    		  dataType : "json" ,
-    		  data:JSON.stringify({"merchantId":1,"name": "henry", "password": "12121221","payKey":"111122121","phone":"13221952583","remark":"beij","addTime":Date.parse(new Date()),"customerStatus":1}),
+    		 contentType : "application/json; charset=utf-8",
+    		 dataType : "json" ,
+    		 contentType : "application/x-www-form-urlencoded",
+    		  data:JSON.stringify({"content":${content},"signstr":"${signstr}"}),
       	 success:function(data) {
       		 $('#content').html(data);
            },
@@ -35,12 +44,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           	 $('#content').html(data);
            } 
     		});
-    	/*
-    	$.post('http://localhost:7688/home2.app/customer', {"name": "henry", "password": "12121221"}, function (data) {
-            $('#content').html(data);
-        })
-        */
+    	
+    	 
+    	//$.post('http://localhost:7688/home2.app/customer', {"name": "henry", "password": "12121221"}, function (data) {
+         //   $('#content').html(data);
+        //})
+        
     });
+  //*/
     $('#putJsonBtn').click(function () {
     	$.ajax({
   		  url: 'http://localhost:8080/home2.app/customer/1',
