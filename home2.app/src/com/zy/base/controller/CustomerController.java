@@ -49,7 +49,21 @@ public class CustomerController {
 		//System.out.println(content);
 		//return 1;
 	}
+	
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@PathVariable("id") int id,@RequestParam String content) {
+		Preconditions.checkNotNull(content);
+		Preconditions.checkArgument(id>0,"id必须大于0");
+		JSONObject contentStr = JSONObject.parseObject(content); //将字符串{“id”：1}
+		Customer customerObj = (Customer)JSONObject.toJavaObject(contentStr, Customer.class);
 
+		//Preconditions.checkNotNull(customerService.getById(resource.getId()));
+		customerService.update(customerObj);
+	}
+	//*/
+   /*
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@PathVariable("id") int id,@RequestBody Customer resource) {

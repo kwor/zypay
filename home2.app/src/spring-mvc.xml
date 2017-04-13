@@ -19,9 +19,12 @@
 	<mvc:annotation-driven/>
 	 <mvc:interceptors>
 	  <mvc:interceptor>  
-                <mvc:mapping path="/customer"/>  
+               
+                <mvc:mapping path="/customer*"/> 
+                <mvc:mapping path="/customer/*"/>  
                 <!-- 拦截器验签-->
                 <bean class="com.zy.base.utils.interceptor.checkSign"></bean>  
+                
       </mvc:interceptor>  
 	 </mvc:interceptors>
 	 

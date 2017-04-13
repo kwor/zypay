@@ -9,7 +9,8 @@
 <body>
 <a href="/home2.app/customer/1" >用户信息GET</a><br/>
 <a href="/home2.app/customer">用户信息列表获取GET</a><br/>
-<a href="/home2.app/test/" >测试post到接口</a><br/>
+<a href="/home2.app/testcreate/" >测试post到接口创建</a><br/>
+<a href="/home2.app/testupdate/" >测试post到接口更新</a><br/>
 <a href="/home2.app/customerAccountRecharge/customerid/1" >获取用户充值记录列表GET</a><br/>
 <a href="/home2.app/customerAccountRecharge/1" >获取单条充值记录列表GET</a><br/>
 

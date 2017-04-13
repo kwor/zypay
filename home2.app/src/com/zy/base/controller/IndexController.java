@@ -33,10 +33,10 @@ public class IndexController {
     }  
 
 	/*
-	 * 测试post提交页面
+	 * 测试post create提交页面
 	 */
-	@RequestMapping(value = "/test", method = { RequestMethod.GET })
-	public ModelAndView CustomerTest() throws Exception {
+	@RequestMapping(value = "/testcreate", method = { RequestMethod.GET })
+	public ModelAndView CustomerTestPost() throws Exception {
 		ModelAndView m = new ModelAndView();
 		String keypath="D:";
 		long timenow=System.currentTimeMillis();
@@ -45,10 +45,26 @@ public class IndexController {
 
 		m.addObject("content", content);
 		m.addObject("signstr", signstr);
-		m.setViewName("test");
+		m.setViewName("testcreate");
 		return m;
 	}
 
+	/*
+	 * 测试post update提交页面
+	 */
+	@RequestMapping(value = "/testupdate", method = { RequestMethod.GET })
+	public ModelAndView CustomerTestUpdate() throws Exception {
+		ModelAndView m = new ModelAndView();
+		String keypath="D:";
+		long timenow=System.currentTimeMillis();
+		String content="{\"id\":1,\"merchantId\":1,\"name\": \"hup\", \"password\": \"12121221\",\"payKey\":\"111122121\",\"phone\":\"13221952583\",\"remark\":\"beij\",\"addTime\":"+timenow+",\"customerStatus\":1}";
+		String signstr=RSASignature.sign(content,RSAEncrypt.loadPrivateKeyByFile(keypath));
+
+		m.addObject("content", content);
+		m.addObject("signstr", signstr);
+		m.setViewName("testupdate");
+		return m;
+	}
     
     /*
      * 生成key文件
