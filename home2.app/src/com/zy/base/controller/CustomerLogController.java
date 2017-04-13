@@ -48,7 +48,8 @@ public class CustomerLogController {
 		return customerLogService.findAll(example);
 	}
 	
-	//创建用户
+	/*
+	//创建记录
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
@@ -57,4 +58,5 @@ public class CustomerLogController {
 		//
 		return customerLogService.create(resource);
 	}
+	//*/
 }
