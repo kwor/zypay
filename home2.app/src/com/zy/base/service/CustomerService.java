@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.pojo.Customer;
 import com.zy.base.pojo.CustomerExample;
 
-public interface ICustomerService {
+public interface CustomerService {
 
 	Customer findOne(int customerId);
 	

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.pojo.CustomerLog;
 import com.zy.base.pojo.CustomerLogExample;
 
-public interface ICustomerLogService {
+public interface CustomerLogService {
 
 	CustomerLog findOne(int customerLogId);
 	

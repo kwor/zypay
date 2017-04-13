@@ -17,13 +17,13 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.zy.base.pojo.CustomerLog;
 import com.zy.base.pojo.CustomerLogExample;
-import com.zy.base.service.ICustomerLogService;
+import com.zy.base.service.CustomerLogService;
 
 @Controller
 @RequestMapping("/customerLog")
 public class CustomerLogController {
 	@Resource
-	private ICustomerLogService customerLogService;
+	private CustomerLogService customerLogService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody

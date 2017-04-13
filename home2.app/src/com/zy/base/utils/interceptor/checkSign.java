@@ -38,8 +38,8 @@ public class checkSign implements HandlerInterceptor{
 		String content=arg0.getParameter("content");
 		//System.out.println(arg0);
 		boolean res=RSASignature.doCheck(content, signstr, RSAEncrypt.loadPublicKeyByFile(keypath));
-		System.out.println(res);
-		System.out.println(signstr);
+		System.out.println("ÊÇ·ñ±»À¹½Ø"+res);
+		//System.out.println(signstr);
 		return res;
 		
 	}

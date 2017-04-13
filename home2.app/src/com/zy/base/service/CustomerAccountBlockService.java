@@ -8,7 +8,7 @@ import com.zy.base.pojo.CustomerAccountBlock;
 import com.zy.base.pojo.CustomerAccountBlockExample;
 
 
-public interface ICustomerAccountBlockService {
+public interface CustomerAccountBlockService {
 
 	CustomerAccountBlock findOne(int customerAccountBlockId);
 	

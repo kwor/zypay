@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
-import com.zy.base.service.ICustomerAccountRechargeService;
+import com.zy.base.service.CustomerAccountRechargeService;
 
 @Controller
 @RequestMapping("/customerAccountRecharge")
@@ -22,7 +22,7 @@ public class CustomerAccountRechargeController {
 	
 	//根据id查询记录
 	@Resource
-	private ICustomerAccountRechargeService customerAccountRechargeService;
+	private CustomerAccountRechargeService customerAccountRechargeService;
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {

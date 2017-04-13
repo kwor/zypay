@@ -8,7 +8,7 @@ import com.zy.base.pojo.CustomerAccountBank;
 import com.zy.base.pojo.CustomerAccountBankExample;
 
 
-public interface ICustomerAccountBankService {
+public interface CustomerAccountBankService {
 
 	CustomerAccountBank findOne(int customerAccoutBankId);
 	

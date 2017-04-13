@@ -8,7 +8,7 @@ import com.zy.base.pojo.CustomerAccountTransfer;
 import com.zy.base.pojo.CustomerAccountTransferExample;
 
 
-public interface ICustomerAccountTransferService {
+public interface CustomerAccountTransferService {
 
 	CustomerAccountTransfer findOne(int customerAccountTransferId);
 	

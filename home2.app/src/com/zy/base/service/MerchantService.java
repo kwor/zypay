@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.pojo.Merchant;
 import com.zy.base.pojo.MerchantExample;
 
-public interface IMerchantService {
+public interface MerchantService {
 
 	Merchant findOne(int merchantId);
 	

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
 
-public interface ICustomerAccountRechargeService {
+public interface CustomerAccountRechargeService {
 
 	CustomerAccountRecharge findOne(int customerAccoutRechargeId);
 	

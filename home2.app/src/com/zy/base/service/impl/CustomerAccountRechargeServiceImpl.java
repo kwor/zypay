@@ -11,7 +11,7 @@ import com.zy.base.pojo.CustomerAccountRecharge;
 import com.zy.base.pojo.CustomerAccountRechargeExample;
  import com.zy.base.service.*;
  @Service("customerAccountRechargeService")
- public class CustomerAccountRechargeServiceImpl implements ICustomerAccountRechargeService{
+ public class CustomerAccountRechargeServiceImpl implements CustomerAccountRechargeService{
 	@Resource
 	private CustomerAccountRechargeMapper customerAccoutRechargeDao;
 	 

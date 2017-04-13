@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.zy.base.pojo.Customer;
-import com.zy.base.service.ICustomerService;
+import com.zy.base.service.CustomerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)		//表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -17,7 +17,7 @@ import com.zy.base.service.ICustomerService;
 public class TestMyBatis {
 	private static Logger logger = Logger.getLogger(TestMyBatis.class);
  	@Resource
-	private ICustomerService customerService = null;
+	private CustomerService customerService = null;
  
 
 	@Test

@@ -2,7 +2,7 @@ package com.zy.base.service.impl;
 
 import com.zy.base.pojo.Customer;
 import com.zy.base.pojo.CustomerExample;
-import com.zy.base.service.ICustomerService;
+import com.zy.base.service.CustomerService;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.zy.base.dao.CustomerMapper;
 @Service("customerService")
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl implements CustomerService {
 	@Resource
 	private CustomerMapper customerDao;
  

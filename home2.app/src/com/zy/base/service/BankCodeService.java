@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.zy.base.pojo.BankCode;
 import com.zy.base.pojo.BankCodeExample;
 
-public interface IBankCodeService {
+public interface BankCodeService {
 
 	BankCode findOne(int bankCodeId);
 	

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.zy.base.dao.CustomerLogMapper;
 import com.zy.base.pojo.CustomerLog;
 import com.zy.base.pojo.CustomerLogExample;
-import com.zy.base.service.ICustomerLogService;
+import com.zy.base.service.CustomerLogService;
 
 @Service("customerLogService")
-public class CustomerLogServiceImpl implements ICustomerLogService{
+public class CustomerLogServiceImpl implements CustomerLogService{
 
 	@Resource
 	CustomerLogMapper customerLogDao;

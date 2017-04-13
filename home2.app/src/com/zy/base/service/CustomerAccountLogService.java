@@ -8,7 +8,7 @@ import com.zy.base.pojo.CustomerAccountLog;
 import com.zy.base.pojo.CustomerAccountLogExample;
 
 
-public interface ICustomerAccountLogService {
+public interface CustomerAccountLogService {
 
 	CustomerAccountLog findOne(int customerAccountLogId);
 	

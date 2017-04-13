@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.apache.http.entity.StringEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import com.alibaba.fastjson.JSON;
@@ -20,13 +21,14 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.google.common.base.Preconditions;
 import com.zy.base.pojo.Customer;
-import com.zy.base.service.ICustomerService;
+import com.zy.base.service.CustomerService;
+import com.zy.base.utils.annotation.AnnotationLog;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
  	@Resource
-	private ICustomerService customerService;
+	private CustomerService customerService;
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
@@ -34,16 +36,16 @@ public class CustomerController {
 		Customer customer = this.customerService.findOne(id);
 		return JSON.toJSONString(customer);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public int create(@RequestParam  String content) {
+	@AnnotationLog(operationSignstr="{signstr}",operationContent="{content}")
+	public int create(@RequestParam String signstr,@RequestParam String content) {
 		Preconditions.checkNotNull(content);
 		
 		JSONObject contentStr = JSONObject.parseObject(content); //½«×Ö·û´®{¡°id¡±£º1}
 		Customer customerObj = (Customer)JSONObject.toJavaObject(contentStr, Customer.class);
-
 		//
 		return customerService.create(customerObj);
 		//System.out.println(content);

@@ -8,7 +8,7 @@ import com.zy.base.pojo.CustomerAccountWithdraw;
 import com.zy.base.pojo.CustomerAccountWithdrawExample;
 
 
-public interface ICustomerAccountWithdrawService {
+public interface CustomerAccountWithdrawService {
 
 	CustomerAccountWithdraw findOne(int customerAccountWithdrawId);
 	
