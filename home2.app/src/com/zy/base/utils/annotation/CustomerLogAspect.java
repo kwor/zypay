@@ -93,10 +93,10 @@ public class CustomerLogAspect {
              }
             //保存数据库  
            // customerLogService.create(log);  
-            System.out.println("=====controller后置通知结束=====");
+           // System.out.println("=====controller后置通知结束=====");
            // System.out.println(operationSignstr); 
            // System.out.println(operationContent); 
-            System.out.println(joinPoint.getArgs()); 
+           // System.out.println(joinPoint.getArgs()); 
         }  catch (Exception e) {  
             //记录本地异常日志  
             logger.error("==后置通知异常==");  

@@ -24,6 +24,7 @@ public class checkSign implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 			throws Exception {
 		// TODO Auto-generated method stub
+		 
 		
 	}
 
@@ -38,8 +39,14 @@ public class checkSign implements HandlerInterceptor{
 		String content=arg0.getParameter("content");
 		//System.out.println(arg0);
 		boolean res=RSASignature.doCheck(content, signstr, RSAEncrypt.loadPublicKeyByFile(keypath));
-		System.out.println("是否被拦截"+res);
+		//System.out.println("是否被拦截"+res);
 		//System.out.println(signstr);
+		//拦截后页面跳转
+		  //不符合条件的，跳转到登录界面 
+		if(!res){
+			arg1.sendRedirect("error"); 
+		}
+		
 		return res;
 		
 	}

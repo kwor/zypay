@@ -4,15 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.zy.base.pojo.CustomerLog;
@@ -28,7 +24,7 @@ public class CustomerLogController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findOne(@PathVariable("id") int id) {
-		Preconditions.checkArgument(id>0,"id必须大于0");
+		Preconditions.checkArgument(id > 0, "id必须大于0");
 		CustomerLog customerLog = this.customerLogService.findOne(id);
 		return JSON.toJSONString(customerLog);
 	}
@@ -42,21 +38,21 @@ public class CustomerLogController {
 	@RequestMapping(value = "/customerId/{customerid}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CustomerLog> findAllById(@PathVariable("customerid") int customerid) {
-		Preconditions.checkArgument(customerid>0,"customerid必须大于0");
+		Preconditions.checkArgument(customerid > 0, "customerid必须大于0");
 		CustomerLogExample example = new CustomerLogExample();
 		example.createCriteria().andCustomerIdEqualTo(customerid);
 		return customerLogService.findAll(example);
 	}
-	
+
 	/*
-	//创建记录
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
-	public int create(@RequestBody CustomerLog resource) {
-		Preconditions.checkNotNull(resource);
-		//
-		return customerLogService.create(resource);
-	}
-	//*/
+	 * //创建记录
+	 * 
+	 * @RequestMapping(method = RequestMethod.POST)
+	 * 
+	 * @ResponseStatus(HttpStatus.CREATED)
+	 * 
+	 * @ResponseBody public int create(@RequestBody CustomerLog resource) {
+	 * Preconditions.checkNotNull(resource); // return
+	 * customerLogService.create(resource); } //
+	 */
 }
