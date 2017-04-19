@@ -19,5 +19,5 @@ public interface MerchantService {
 	
 	int delete( int merchantId);
 
-	int getById(int merchantId);
+	//int getById(MerchantExample example);
 }

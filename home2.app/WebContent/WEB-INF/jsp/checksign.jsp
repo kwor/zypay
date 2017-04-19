@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form action="/home2.app/doCheck" method="post">
 密钥地址：<input type="text" value="D:" name="keypath"><br/><br/>
 密文：<textarea rows="10" cols="50" name="signstr"></textarea><br/><br/>

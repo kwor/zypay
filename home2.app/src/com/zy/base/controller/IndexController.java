@@ -1,5 +1,6 @@
 package com.zy.base.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,13 +49,18 @@ public class IndexController {
 	public ModelAndView CustomerTestPost() throws Exception {
 		ModelAndView m = new ModelAndView();
 		String keypath = "D:";
+		
 		long timenow = System.currentTimeMillis();
-		String content = "{\"merchantId\":1,\"name\": \"henry\", \"password\": \"12121221\",\"payKey\":\"111122121\",\"phone\":\"13221952583\",\"remark\":\"beij\",\"addTime\":"
-				+ timenow + ",\"customerStatus\":1}";
+		String content = "{merchantId:1,name: \"henry\",password: \"12121221\",phone:\"13221952583\",remark:\"beij\",addTime:"
+				+ timenow + ",mail:\"kwor@163.com\"}";
 		String signstr = RSASignature.sign(content, RSAEncrypt.loadPrivateKeyByFile(keypath));
-
+		
+	//	byte[] cipherData=RSAEncrypt.encrypt(RSAEncrypt.loadPublicKeyByStr(RSAEncrypt.loadPublicKeyByFile(keypath)),content.getBytes());  
+	//  String signcontent=Base64.encodeBase64String(cipherData);  
+		 
 		m.addObject("content", content);
 		m.addObject("signstr", signstr);
+//		m.addObject("signcontent", signcontent);
 		m.setViewName("testcreate");
 		return m;
 	}
